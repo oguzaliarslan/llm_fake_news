@@ -1,0 +1,4 @@
+Week 5-6 (1 Nov - 8 Nov): Literature Review
+Oğuz Ali Arslan: 
+* Read a survey on Data Mining perspective about Fake News Detection
+* Read another survey that focuses on implemention of Fake News Detection model
