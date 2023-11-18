@@ -6,3 +6,10 @@ Oğuz Ali Arslan:
 Doruk Üzgün:
 * Read a survey that includes different deep learning approaches on Fake News Detection.
 * Added the datasets
+
+Week 6-7 (9 Nov - 15 Nov): EDA and Data Preparation
+
+
+Doruk Üzgün:
+* Loaded the datasets and explored them.
+* Preprocessed our datasets and combined them into a one and made them suitable for NLP preprocessing steps
