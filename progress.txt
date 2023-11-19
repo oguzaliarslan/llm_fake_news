@@ -8,7 +8,9 @@ Doruk Üzgün:
 * Added the datasets
 
 Week 6-7 (9 Nov - 15 Nov): EDA and Data Preparation
-
+Oğuz Ali Arslan:
+* Cleaned the data (removed stopwords, punctuations, non-unicode chars) and added some plots.
+* Changed the overall structure of the ipynb and created two different dataset, one for combined binary classification and other for multi-label classification
 
 Doruk Üzgün:
 * Loaded the datasets and explored them.
