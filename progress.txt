@@ -15,3 +15,9 @@ Oğuz Ali Arslan:
 Doruk Üzgün:
 * Loaded the datasets and explored them.
 * Preprocessed our datasets and combined them into a one and made them suitable for NLP preprocessing steps
+
+Week 8-9 (20 Nov - 28 Nov): LLM and NON-NN ML
+Oğuz Ali Arslan:
+* Decided to drop one of the datasets since after inspecting the datasets, LIAR dataset have very different characteristics (much shorter).
+* Created the LLM (LLaMa2) pipeline and get the partial results.
+* Created the BERT pipeline and still working on it since it creates some overfitting problem.
