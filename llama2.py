@@ -1,14 +1,13 @@
 import torch
-import transformers
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import pipeline
 from langchain import HuggingFacePipeline
 from langchain import PromptTemplate,  LLMChain
 import pandas as pd
-import tqdm
+from tqdm import tqdm  
 
-
-text_dataset = pd.read_csv('dataset.csv', index_col=0)
+# TODO: Create a proper class structure for generalization
+text_dataset = pd.read_csv('dataset_clean.csv', index_col=0)
 text_dataset = text_dataset.sample(frac=1).reset_index(drop=True)
 text_dataset = text_dataset[0:1500]
 df_text = text_dataset['clean_text'].tolist()
@@ -37,7 +36,18 @@ pipe = pipeline("text-generation",
                 eos_token_id=tokenizer.eos_token_id
                 )
 
-
+# TODO: Check the prompt below.
+# template = """Task
+# Determine whether the Statement is a
+# lie (Yes) or not (No) based on the Context
+# and other information.
+# # Output format
+# Answer Yes or No as labels
+# # Examples
+# { examples }
+# # Prediction
+# Text: { text }
+# Label:"""
 
 llm = HuggingFacePipeline(pipeline = pipe, model_kwargs = {'temperature':0})
 
@@ -53,27 +63,26 @@ Answer the question based on the context. You should follow ALL the following ru
 User Question : {text}
 Your answer:"""
 
-
-
-#instruction = "Give an sentiment score for the following text:\n\n {text}"
-
 prompt = PromptTemplate(template=template, input_variables=["text"])
-#print(instruction)
-
-# prompt = PromptTemplate(template=template, input_variables=["text"])
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 # even with quantization it is borderline impossible to test all of them with
 text_dataset = text_dataset[0:1500]
 df_text = text_dataset['clean_text'].tolist()
-
-pred_df = pd.DataFrame({'text': df_text, 'label': None})
+df_label = text_dataset['label'].tolist()
+pred_df = pd.DataFrame({'text': df_text, 'label': df_label, 'pred_label':None})
 outputs = []
+# Turns out the problem was the lengths of the sentences.. tragic!
+MAX_TEXT_LENGTH = 512  
 
-for i, text in enumerate(df_text):
-    output = llm_chain.run(text)
-    outputs.append(output)
-    pred_df.loc[i, 'Label'] = output
-    if i % 10 == 0:
-        print(f'iteration {i}')
+for i, text in tqdm(enumerate(df_text), total=len(df_text)):
+    try:
+        if len(text) > MAX_TEXT_LENGTH:
+            text = text[:MAX_TEXT_LENGTH]
+        output = llm_chain.run(text)
+        pred_df.loc[i, 'pred_label'] = output
+        if i % 500 == 0:
+          pred_df.to_csv(f'llama2-{i}.csv')
+    except TypeError:
+        continue
 
-pred_df.to_csv('llama2.csv')
+pred_df.to_csv(f'llama2.csv')
