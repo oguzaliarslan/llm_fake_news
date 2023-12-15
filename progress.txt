@@ -21,3 +21,18 @@ Oğuz Ali Arslan:
 * Decided to drop one of the datasets since after inspecting the datasets, LIAR dataset have very different characteristics (much shorter).
 * Created the LLM (LLaMa2) pipeline and get the partial results.
 * Created the BERT pipeline and still working on it since it creates some overfitting problem.
+
+Doruk Üzgün:
+* Created the LSTM pipeline and got the initial results.
+
+Week 9-10 (28 Nov - 4 Dec): Intermediate Report
+Oğuz Ali Arslan:
+* Worked on the Intermediate Report.
+
+Doruk Üzgün:
+* Worked on the Intermediate Report.
+
+Week 10-11 (5 Dec - 13 Dec):
+Week 11-12 (14 Dec - 21 Dec):
+Week 12-13 (21 Dec - 28 Dec):
+Week 13-14 (28 Dec - 1 Jan):
