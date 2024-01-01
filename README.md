@@ -11,15 +11,24 @@ git clone https://github.com/oguzaliarslan/Group_7
 ```
 pip install -r requirements.txt
 ```
-3. **Cleaned Datasets** are too big to upload on Github and can be access from the drive link below,
+3. **Datasets** are too big to upload on Github and can be access from the drive link below,
 ```
-https://drive.google.com/drive/folders/1Yf6UKXsvUZj--joCH8irCIMDhKtK7dYp
+https://drive.google.com/drive/folders/1s5vXdgWO-S_EANivU_TNnP4ovmQY1a81?usp=sharing
 ```
+These datasets are required for EDA.
+
 4. **Models** are also too big to upload on GitHub and can be accessed from the drive link below
 ```
 https://drive.google.com/drive/folders/1mxFLV7FpvzaIOxebxR2KWDofVS-t1fG-
 ```
-5. Results obtained by the trainings and evaluation done by use can be seen in **main.ipynb**
+
+5. **Cleaned Datasets** are too big to upload on Github and can be access from the drive link below,
+```
+https://drive.google.com/drive/folders/1Yf6UKXsvUZj--joCH8irCIMDhKtK7dYp
+```
+These datasets are required for Result Analysis.
+
+6. Results obtained by the trainings and evaluation done by use can be seen in **main.ipynb**
 
 ## Executing the scripts
 Training scripts can be runned on their own.
