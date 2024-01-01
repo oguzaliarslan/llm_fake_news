@@ -33,6 +33,20 @@ Doruk Üzgün:
 * Worked on the Intermediate Report.
 
 Week 10-11 (5 Dec - 13 Dec):
+Oğuz Ali Arslan:
+* Split the datasets into bits to train our models on them seperately.
+
+Doruk Üzgün:
+* Created the ML gridsearch pipeline.
 Week 11-12 (14 Dec - 21 Dec):
+Oğuz Ali Arslan:
+* Changed the BERT and LLM pipeline into py scripts to have a better file structure.
+* Executed the classifiers.
+
+Doruk Üzgün:
+* Run the models on local to get the scores.
 Week 12-13 (21 Dec - 28 Dec):
 Week 13-14 (28 Dec - 1 Jan):
+Oğuz Ali Arslan:
+* Decided to use Mistral as secondary LLM to show it as PoC.
+* Trained DistilBert on our datasets to obtain the results.
