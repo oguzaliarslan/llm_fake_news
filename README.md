@@ -11,7 +11,7 @@ git clone https://github.com/oguzaliarslan/Group_7
 ```
 pip install -r requirements.txt
 ```
-3. **Datasets** are too big to upload on Github and can be access from the drive link below
+3. **Cleaned Datasets** are too big to upload on Github and can be access from the drive link below,
 ```
 https://drive.google.com/drive/folders/1Yf6UKXsvUZj--joCH8irCIMDhKtK7dYp
 ```
