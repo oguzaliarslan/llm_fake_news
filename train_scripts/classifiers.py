@@ -15,7 +15,11 @@ from joblib import dump
 import argparse
 import pandas as pd
 
-def call_models():
+
+def call_models(): 
+    '''
+    Helper function that returns the model without any parameters
+    '''
    # tree-based: Gradientboosting, AdaBoost, Random Forest, Extra Trees, Decision Tree, CatBoost, LightGBM, XGBoost
    # others: lr, nv, pac, rc
     return  {
@@ -38,9 +42,9 @@ def call_models():
 def text_classification(texts, labels) -> pd.DataFrame:
     """
     Perform text classification using different feature extraction methods and models.
-    Args:
-        texts (pd.DataFrame): A series of text samples.
-        labels (pd.DataFrame): A series of corresponding labels for the text samples.
+    Input:
+        texts: Given text sequences.
+        labels: Corresponding labels for text sequences.
     Returns:
         pd.DataFrame
     """
@@ -104,7 +108,10 @@ def text_classification(texts, labels) -> pd.DataFrame:
 
 
 def call_models_grid():
-    tolerance = 1e-2
+    '''
+    Helper function that returns the model with parameters
+    '''
+    tolerance = 1e-2 # some of the models takes too much time while training
     
     return  {
          'Logistic Regression': (LogisticRegression(), {'C': [0.1, 1, 10], 'tol': [tolerance]}),
@@ -122,9 +129,9 @@ def call_models_grid():
 def text_classification_grid(texts, labels, out) -> pd.DataFrame:
     """
     Perform text classification using different feature extraction methods and models.
-    Args:
-        texts (pd.DataFrame): A series of text samples.
-        labels (pd.DataFrame): A series of corresponding labels for the text samples.
+    Input:
+        texts: Given text sequences.
+        labels: Corresponding labels for text sequences.
     Returns:
         pd.DataFrame
     """

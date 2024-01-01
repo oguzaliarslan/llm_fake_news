@@ -7,6 +7,13 @@ from sklearn.model_selection import train_test_split
 
 class BERTTextClassifier:
     def __init__(self, model_name, X_train, y_train, X_test, y_test,token="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"):
+        '''
+        :param model_name Name of the model that is going to be trained
+        :param X_train Training text
+        :param y_train Training label
+        :param X_test Testing text
+        :param y_test Testing label
+        '''
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.token = token
         self.model = AutoModelForSequenceClassification.from_pretrained(model_name)
