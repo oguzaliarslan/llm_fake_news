@@ -12,6 +12,8 @@ from catboost import CatBoostClassifier
 import xgboost as xgb
 from tqdm import tqdm
 from joblib import dump
+import argparse
+import pandas as pd
 
 def call_models():
    # tree-based: Gradientboosting, AdaBoost, Random Forest, Extra Trees, Decision Tree, CatBoost, LightGBM, XGBoost
@@ -138,7 +140,7 @@ def text_classification_grid(texts, labels, out) -> pd.DataFrame:
     models = call_models_grid()
     results = []
 
-    for model_name, (model, param_grid) in tqdm(models.items(), total=16):
+    for model_name, (model, param_grid) in tqdm(models.items(), total=len(models.items())):
         model_folder = f"{out}/{model_name.replace(' ', '_')}_results"
         os.makedirs(model_folder, exist_ok=True)
         for fe_name, fe in tqdm(feature_extraction_methods.items(), total=len(feature_extraction_methods)):
@@ -187,3 +189,33 @@ def text_classification_grid(texts, labels, out) -> pd.DataFrame:
     headers = ['Model', 'Feature Extraction', 'Accuracy', 'Precision','Recall','F1','Best Params']
     model_df = pd.DataFrame(results, columns=headers)
     return (model_df)
+
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Text Classification with CLI')
+    parser.add_argument('--input_data', type=str, help='Path to input data file (CSV)')
+    parser.add_argument('--output_folder', type=str, help='Path to the output folder to store results')
+    parser.add_argument('--grid_search', action='store_true', help='Whether to perform grid search or not')
+    print("qwe")
+    args = parser.parse_args()
+
+    input_data = pd.read_csv(args.input_data)
+    try:
+        texts = input_data['clean_text']
+    except:
+        texts = input_data['text']
+    labels = input_data['label']
+    texts.fillna('', inplace=True)
+    output_folder = args.output_folder
+
+    if args.grid_search:
+        result = text_classification_grid(texts, labels, output_folder)
+    else:
+        result = text_classification(texts, labels)
+
+    result.to_csv(f'{output_folder}/text_classification_results.csv', index=False)
+    
+    
+if __name__ == "__main__":
+    main()
