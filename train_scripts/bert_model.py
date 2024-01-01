@@ -1,13 +1,15 @@
 import torch
+import argparse
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-from transformers import BertForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
+from transformers import AutoModelForSequenceClassification , AutoTokenizer, Trainer, TrainingArguments
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 class BERTTextClassifier:
-    def __init__(self, token, model_name, X_train, y_train, X_test, y_test):
+    def __init__(self, model_name, X_train, y_train, X_test, y_test,token="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"):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.token = token
-        self.model = BertForSequenceClassification.from_pretrained(model_name)
+        self.model = AutoModelForSequenceClassification.from_pretrained(model_name)
         self.device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         self.model.to(self.device)
         
@@ -62,3 +64,29 @@ class BERTTextClassifier:
         
         return acc, precision, recall, f1
 
+def main():
+    parser = argparse.ArgumentParser(description="Generate predictions using the specified dataset.")
+    parser.add_argument('--input_data', type=str, help='Path to input data file (CSV)')
+    parser.add_argument('--model_name', type=str, help='Model name on Huggingface, e.g. "bert-base-uncased"')
+    args = parser.parse_args()
+    
+    input_data = pd.read_csv(args.input_data)
+    input_data.dropna()
+    try:
+        input_data = pd.read_csv(args.input_data)
+        X_col_name = 'clean_text' if 'clean_text' in input_data.columns else 'text'
+        
+        X = list(input_data.dropna(subset=[X_col_name])[X_col_name])
+        y = list(input_data.dropna(subset=[X_col_name])['label'])
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+        
+        model = BERTTextClassifier(model_name=args.model_name, X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test)
+        model.train()
+        model_output_dir = "model_results/bert_liar"
+        model.model.save_pretrained(model_output_dir)
+        model.tokenizer.save_pretrained(model_output_dir)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        
+if __name__ == "__main__":
+    main()
