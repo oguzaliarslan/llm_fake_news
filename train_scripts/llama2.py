@@ -8,9 +8,14 @@ import pandas as pd
 from tqdm import tqdm  
 
 def generate_predictions(dataset_path):
+    '''
+    Inferencing on given dataset with Llama2
+    :param str dataset_path
+    :return None
+    '''
     text_dataset = pd.read_csv(dataset_path, index_col=0)
     text_dataset = text_dataset.sample(frac=1).reset_index(drop=True)
-    text_dataset = text_dataset[0:1500]
+    text_dataset = text_dataset
     try:
         df_text = text_dataset['clean_text'].tolist()
     except:
